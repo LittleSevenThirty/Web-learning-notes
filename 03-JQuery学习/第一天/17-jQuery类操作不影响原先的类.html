@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .one {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            transition: all .5s;
+        }
+
+        .two {
+            transform: rotate(720deg);
+        }
+    </style>
+    <script src="jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="one"></div>
+    <script>
+        // 方法1
+        // let one = document.querySelector(".one");
+        // one.addEventListener("click", function () {
+        //     one.classList.add("two");
+        // })
+        // 方法2
+        $(function () {
+            $("div").click(function () {
+                $(this).addClass("two");
+            })
+        })
+    </script>
+</body>
+
+</html>

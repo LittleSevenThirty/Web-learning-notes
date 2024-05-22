@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery.min.js"></script>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <span></span>
+
+    <script>
+        // 1. DOM对象：用原生js获取过来的对象就是DOM对象
+        let myDiv = document.querySelector("div");
+        let mySpan = document.querySelector("span");
+        console.dir(myDiv);
+
+        // 2. jQuery对象： 用jQuery方式获取过来的jQuery对象。本事：通过$/jquery对DOM元素进行了包装
+        let jQueryDiv = $("div");   // 此时$("div")就是jQuery对象
+        console.dir(jQueryDiv);
+
+        // 3. jQuery 对象只能使用jQuery方法，DOM对象则使用原生的JavaScript属性和方法
+        // myDiv.style.display = "none";
+        // 错误写法 $("div").style.display="none";
+        $("div")[0].style.display = "none";
+    </script>
+</body>
+
+</html>

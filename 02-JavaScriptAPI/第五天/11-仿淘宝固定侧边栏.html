@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .slider-bar {
+            position: absolute;
+            left: 50%;
+            top: 300px;
+            margin-left: 600px;
+            width: 45px;
+            height: 130px;
+            background-color: pink;
+        }
+
+        .w {
+            width: 1200px;
+            margin: 10px auto;
+        }
+
+        .header {
+            height: 150px;
+            background-color: purple;
+        }
+
+        .banner {
+            height: 250px;
+            background-color: skyblue;
+        }
+
+        .main {
+            height: 1000px;
+            background-color: yellowgreen;
+        }
+
+        span {
+            display: none;
+            position: absolute;
+            bottom: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slider-bar">
+        <span class="goBack"><a href="javaScript:;">返回顶部</a></span>
+    </div>
+    <div class="header w">头部区域</div>
+    <div class="banner w">banner区域</div>
+    <div class="main w">主体部分</div>
+    <script>
+        // window.pageYOffset可以获取页面被卷去的页面头部
+
+        // 1. 获取元素
+        let sliderbar = document.querySelector(".slider-bar");
+        let banner = document.querySelector(".banner");
+        let main = document.querySelector(".main");
+        let goBack = document.querySelector(".goBack");
+        // console.log(banner.offSetTop);
+
+        let mainTop = main.offsetTop;
+        let bannerTop = banner.offsetTop; // 就是被卷去的头部大小
+        let sliderbarTop = (sliderbar.offsetTop - bannerTop);
+        // 2. 页面滚动事件scroll
+        document.addEventListener("scroll", function () {
+            // console.log("11");
+            // window.pageYOffset 页面被卷去的头部
+            // console.log(window.pageYOffset);
+            if (window.pageYOffset >= bannerTop) {
+                sliderbar.style.position = "fixed";
+                sliderbar.style.top = sliderbarTop + "px";
+            } else {
+                sliderbar.style.position = "absolute";
+                sliderbar.style.top = "300px";
+            }
+            if (window.pageYOffset >= mainTop) {
+                goBack.style.display = "block";
+            } else {
+                goBack.style.display = "none";
+            }
+        });
+        // 3. 当我们点击了返回顶部模块，就让窗口滚动到页面的最上方
+        goBack.addEventListener("click", function () {
+            // 写法1    里面的x，y都是没有单位的
+            // window.scroll(x,y);
+
+            // 写法2 传入对象
+            window.scroll({
+                top: 0,
+                left: 0,
+                behavior: "smooth"
+            })
+        })
+    </script>
+</body>
+
+</html>

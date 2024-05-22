@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .ball {
+            margin: 100px auto;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+
+        .ball {
+            animation: x 1s cubic-bezier(0.5, -800, 0.5, 800) infinite;
+            /* x 1s cubic-bezier(0.5, -800, 0.5, 800) infinite */
+        }
+
+        @keyframes x {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translateX(1, 1);
+            }
+        }
+
+        @keyframes y {
+            to {
+                transform: translateY(1px);
+                transform: translateX(1px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ball"></div>
+</body>
+
+</html>

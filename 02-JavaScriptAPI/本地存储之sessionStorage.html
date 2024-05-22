@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text">
+    <button class="set">存储数据</button>
+    <button class="get">获取数据</button>
+    <button class="remove">删除数据</button>
+    <button class="del">清空所有数据</button>
+
+    <script>
+        let input = document.querySelector("input");
+        let set = document.querySelector(".set");
+        let get = document.querySelector(".get");
+        let remove = document.querySelector(".remove");
+        let del = document.querySelector(".del");
+
+        set.addEventListener("click", function () {
+            // 当我们点击了之后，就可以把里面的值存储起来
+            let val = input.value;
+            window.sessionStorage.setItem("uname", val);
+            window.sessionStorage.setItem("pwd", val);
+        });
+        get.addEventListener("click", function () {
+            // 当我们点击了之后，就可以把里面的值拿起来
+            console.log(window.sessionStorage.getItem("uname"));
+        });
+        remove.addEventListener("click", function () {
+            // 当我们点击了之后，就可以把里面的值删除
+            window.sessionStorage.removeItem("uname");
+        });
+        del.addEventListener("click", function () {
+            // 当我们点击了之后，就可以把里面的值清空
+            window.sessionStorage.clear();
+        });
+    </script>
+</body>
+
+</html>

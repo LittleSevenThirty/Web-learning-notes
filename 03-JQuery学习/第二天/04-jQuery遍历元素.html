@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery.min.js"></script>
+</head>
+
+<body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <script>
+        $(function () {
+            // $("div").css("color", "red");
+            // 如果针对同一类元素做不同的操作，需要用到遍历元素(each)
+            let sum = 0;
+            // 1. each()方法遍历元素
+            let arr = ["red", "blue", "green"];
+            $("div").each(function (index, domEle) {
+                // 回调函数的第一个参数一定是索引号，可以自己指定索引号的名称
+                // console.log(index);
+                // 回调函数的第二个参数一定是dom元素对象
+                console.log(domEle);
+                // 注意：domEle.css("color","red"); dom对象没有css方法
+                $(domEle).css("color", arr[index]);
+                sum += parseInt($(domEle).text());
+            });
+            console.log(sum);
+        })
+    </script>
+</body>
+
+</html>

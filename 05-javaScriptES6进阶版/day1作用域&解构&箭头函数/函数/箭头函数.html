@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 基本用法:
+        // 只有一个参数，并且只返回一个值可以省略()和{}以及return
+        console.log("一");
+        var f = v => v;
+
+        // 等同于
+        var f2 = function (v) {
+            return v;
+        }
+
+        console.log(f(123));
+        console.log(f2(123));
+        // 如果箭头函数要传入多个参数，或者根本不需要参数需要使用()括起来，并且同函数一样可以使用rest参数
+        // 如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回。
+        // eg var f3=()=>{console.log("我是无参的箭头函数")};
+        console.log("二");
+        var sum = (...nums) => {
+            let sum = 0;
+            for (let val of nums) {
+                sum += val;
+            } return sum;
+        }
+
+        console.log(sum(1, 2, 3, 4));
+
+        // 由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，
+        // 必须在对象外面加上括号，否则会报错。
+        console.log("三");
+        var f4 = id => ({
+            id: id,
+            name: "temp"
+        })
+
+        console.log(f4(123));
+
+        // 箭头函数可以与变量解构结合使用。
+
+        // 箭头函数的一个用处是简化回调函数。
+        // eg:
+        console.log("四");
+        let arr = [1, 2, 3];
+        // let arr2 = arr.map(function (v) {
+        //     return v * v;
+        // });
+
+        // 箭头函数写法
+        let arr2 = arr.map(x => x * x);
+        console.log(arr2);
+    </script>
+</body>
+
+</html>

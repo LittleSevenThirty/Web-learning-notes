@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. 创建类 class 创建一个 明星类
+        class Star {
+            // 在ES6里函数不用再写function
+            constructor(uname, age) {
+                this.uname = uname;
+                this.age = age;
+            }
+        }
+
+        console.log(typeof Star);
+        // 2. 利用类创建对象，new
+        let ldh = new Star("刘德华", 18);
+        let zxy = new Star("张学友", 20);
+        console.log(ldh);
+        console.log(zxy);
+    </script>
+</body>
+
+</html>

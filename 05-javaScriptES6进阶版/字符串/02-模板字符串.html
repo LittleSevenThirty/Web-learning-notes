@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 模板字符串是增强版的字符串，用反引号(`)表示，它可以当作普通字符串使用，也可以用来定义多行字符串，或者
+        // 在字符串里嵌入变量
+        // 模板字符串中嵌入变量，需要将变量名写在${}之中。
+        let name = "Jhon", time = "today";
+        console.log(`hello ${name},how are you ${time}?`);
+
+        // 普通字符串
+        console.log(`In JavaScript \n is a line-feed`);
+
+        // 如果使用模板字符串表示多行字符串，所有的空格和缩进都会被保留在输出之中
+        // 多行字符串
+        console.log(`In JavaScript this is
+        not legal.`);
+
+        // 所有的模板字符串都是用一对(`)表示，若要使用此符号，则必须使用反斜杠(\)转义，如\`
+        console.log(`\`Yo\`World`);
+
+        // 大括号内可以放入任意的JavaScript表达式，可以进行运算，以及引用对象属性
+        let x = 1;
+        let y = 2;
+
+        console.log(`${x}+${y}=${x + y}`);
+
+        console.log(`${x}+${y * 2}=${x + y * 2}`);
+
+        let obj = { x: 1, y: 2 };
+        console.log(`${obj.x}+${obj.y}=${obj.x + obj.y}`);
+
+        function sayHello() {
+            return "world";
+        }
+
+        console.log(`hello ${sayHello()}`);
+
+        // 如果大括号中的值不是字符串，将按照一般的规则转为字符串。比如，大括号中是一个对象，将默认调用对象的toString方法。
+        // 如果模板字符串中的变量没有声明，将报错。
+        // console.log(`${temp}`); error
+
+        // 模板字符串甚至可以嵌套
+        const templ = addrs => `
+        <table>
+            ${addrs.map(addr => `
+                <tr><td>${addr.first}</td></tr>
+                <tr><td>${addr.last}</td></tr>
+            `).join('')}
+        </table>
+        `;
+
+        const data = [
+            { first: '<Jane>', last: "Bond" },
+            { first: "Lars", last: '<Croft>' },
+        ];
+
+        console.log(templ(data));
+
+        // 模板字符串的功能，不仅仅是上面这些。它可以紧跟在一个函数名后面，
+        // 该函数将被调用来处理这个模板字符串。这被称为“标签模板”功能（tagged template）。
+
+        // 用自己的话说就是在函数名后面直接使用模板字符串，相当于 函数名(模板字符串) 这种调用方式
+
+        alert`hello`;
+        // 等同于
+        alert(['hello', 'world']);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            position: absolute;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            /* transition: left 5s; */
+        }
+
+        span {
+            position: absolute;
+            left: 0;
+            top: 200px;
+            display: block;
+            width: 150px;
+            height: 150px;
+            background-color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="btn500">点击夏雨荷才走500</button>
+    <button class="btn800">点击夏雨荷才走800</button>
+    <div></div>
+    <span>夏雨荷</span>
+
+    <script>
+        // var obj = {};
+        // obj.name = "andy";
+
+        // 简单动画函数封装obj目标对象 target 目标位置
+        function animate(obj, target) {
+            // 1. 让盒子每次移动的距离慢慢变小，速度就会慢慢落下来
+            // 2. 核心算法:(目标值-现在位置)/10 作为每次移动的距离 步长
+            // 3. 停止条件：让当前盒子位置等于目标位置就停止定时器
+
+            // 会出现一个span出现多个定时器效果所以每次需要删除前一个定时器
+            clearInterval(obj.timer);
+
+            obj.timer = window.setInterval(function () {
+                // 步长值写到定时器的里面
+                let step = Math.floor((target - obj.offsetLeft) / 10);
+                step = step >= 0 ? step + 1 : step - 1;
+                if (obj.offsetLeft == target) {
+                    // 停止动画 本质是停止定时器
+                    clearInterval(obj.timer);
+                }
+                else {
+                    obj.style.left = obj.offsetLeft + step + "px";
+                }
+            }, 15);
+        }
+
+        let span = document.querySelector("span");
+        let div = document.querySelector("div");
+        let btn = document.querySelector(".btn500");
+        let btn800 = document.querySelector(".btn800");
+
+
+        // 调用函数
+        animate(div, 300);
+        btn.addEventListener("click", function () {
+            animate(span, 500);
+        })
+
+        btn800.addEventListener("click", function () {
+            animate(span, 800);
+        })
+        // 匀速动画 就是 盒子当前的位置+固定值 10
+        // 缓动动画 盒子当前位置+步长
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function outer() {
+            let a = 10;
+            function inner() {
+                console.log(a);
+            }
+            return inner;
+        }
+        outer();
+
+        // 里层函数调用外层函数的变量，将两者捆绑在一起叫做闭包，python里也有
+        //闭包的常用是让外部也能够使用函数内部的变量
+
+        // 闭包的应用,统计函数的使用次数
+        let i = 0;
+        function fn() {
+            i++;
+            console.log(`函数被调用了${i}次`);
+        }
+        // 定义在全局作用域的变量会有数据被修改的风险
+
+        // 闭包形式:实现数据的私有
+        function outer2() {
+            let i = 0;
+            function count() {
+                i++;
+                console.log(`函数被调用了${i}次`);
+            }
+            return count;
+        }
+        let fun = outer2();         // 不会触发垃圾回收，outer2执行后，fun指向了count，count里的i指向了outer2的局部变量i，由根部可以找到不会被回收
+        // 但是这也有问题，i应该被回收但是没有被回收，造成内存泄露
+    </script>
+</body>
+
+</html>

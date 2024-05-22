@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container">
+        <div id="d">This is a div.</div>
+    </div>
+
+    <script>
+        let container = document.getElementById("container");
+        let d = document.getElementById("d");
+
+        console.log(container.firstChild.nodeName);
+        // logs "div"
+
+        d.outerHTML = "<p>This paragraph replaced the original div.</p>";
+        // d.innerHTML=""
+
+        console.log(container.firstChild.nodeName);
+        // logs "P"
+
+        /*
+        #d div 不再是文档树的一部分，新段替换了它。
+        (不在页面中显示，但仍然在内存中)
+        */
+    </script>
+</body>
+
+</html>

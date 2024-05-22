@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // ES6引入rest参数(形式为 ...变量名),用于获取函数的多余参数，用来替代arguments对象，rest参数是一个数组，是将多余的参数放入数组中
+        function add(...values) {
+            let sum = 0;
+            for (var val of values) {
+                sum += val;
+            }
+            return sum;
+        }
+
+        console.log(add(1, 2, 3, 4, 5, 6, 7, 8, 9));
+
+        // 2.arguments对象不是数组，而是一个类似数组的对象。所以为了使用数组的方法，必须使用Array.prototype.slice.call先将其转为数组。
+        // rest 参数就不存在这个问题，它就是一个真正的数组，数组特有的方法都可以使用。
+        function push(array, ...items) {
+            items.forEach(function (value) {
+                array.push(value);
+                console.log(value);
+            });
+        }
+
+        let a = [];
+        push(a, 1, 2, 3, 4, 5, 6);
+        console.log(a);
+
+        // 注意：rest参数之后不能再有其它参数（只能是最后一个的参数）,否则报错
+        // eg: function a(a,...b,c){}   error
+
+        // 函数的length的属性不包括rest参数
+        console.log((function (a) { }).length);
+        console.log((function (a, ...b) { }).length);
+        console.log((function (...b) { }).length);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var f = function () { };
+
+        console.log(f.name);    // 在ES5版本中，返回空字符串，在ES6版本，匿名函数返回实际函数名即是参数名
+
+        // 如果把有名的函数赋值给变量，则name属性返回具体函数名
+        var bcd = function abc() { };
+        console.log(bcd.name);
+
+        // Function构造函数返回的函数实例，name属性的值为anonymous
+
+    </script>
+</body>
+
+</html>

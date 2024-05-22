@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button class="begin">开启定时器</button>
+    <button class="stop">停止定时器</button>
+    <script>
+        let begin = document.querySelector(".begin");
+        let stop = document.querySelector(".stop");
+
+        let time = null;
+        begin.addEventListener("click", function () {
+            time = window.setInterval(function () {
+                console.log("ni hao ma");
+            }, 1000);
+        });
+
+        stop.addEventListener("click", function () {
+            window.clearInterval(time);
+        })
+    </script>
+</body>
+
+</html>

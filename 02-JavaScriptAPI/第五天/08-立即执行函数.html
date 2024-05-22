@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. 立即执行函数：不需要调用，立马就能自己执行
+        function fn() {
+            console.log(1);
+        }
+        fn();
+
+        // 2. 写法 也可以传递参数
+        // (function(){})() 或者 (function(){}())
+
+        (function (a, b) {
+            console.log(a + b);
+            let num = 10;
+        })(1, 2);    // 第二个小括号可以看作是抵用函数
+
+        (function sum(a, b) {
+            console.log(a + b);
+            let num = 10;   // 局部变量
+        }(2, 5));
+        // 3. 立即函数的好处是设置了一个单独的作用域，避免了命名冲突问题
+    </script>
+</body>
+
+</html>

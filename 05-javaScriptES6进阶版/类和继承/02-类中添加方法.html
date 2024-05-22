@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 补充 实例的属性除非显式定义在其本身（即定义在this对象上），否则都是定义在原型上（即定义在class上）
+        // 类中的函数前没加this，默认加载在原型对象上
+
+        // 1. 创建类 class 创建一个 明星类
+        class Star {
+            // 在ES6里函数不用再写function
+            constructor(uname, age) {
+                this.uname = uname;
+                this.age = age;
+            };
+            sing(song) {
+                console.log(this.uname + "唱" + song);
+                this.#private();
+            }
+
+            // 私有方法或者私有属性是在函数名或者属性名前加上#
+            #private() {
+                console.log("我是私有的方法，外部无法使用")
+            }
+        }
+
+        // 2. 利用类创建对象，new
+        let ldh = new Star("刘德华", 18);
+        let zxy = new Star("张学友", 20);
+        console.log(ldh);
+        console.log(zxy);
+        // (1)在ES6的写法里面不用写function
+        // (2)多个函数之间不需要写，那是对象传递时用的
+        ldh.sing("冰雨");
+        zxy.sing("嫩零");
+        // ldh.#private(); // error
+    </script>
+</body>
+
+</html>

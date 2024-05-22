@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // ES6之前，不能直接为函数的参数指定默认值，只能采用变通的方法.
+        function log(x, y) {
+            y = y || "world";
+            console.log(x, y);
+        }
+
+        log("hello");           // hello world
+        log("hello", "China");  // hello China
+        log("hello", '');       // hello world
+        // log 函数的参数y传入后检测是否有指定值，如果没有，则指定默认值为World.这种写法的缺点在于，如果参数y赋值了则不变
+
+    </script>
+</body>
+
+</html>

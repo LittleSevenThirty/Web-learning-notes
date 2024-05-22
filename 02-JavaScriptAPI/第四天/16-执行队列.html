@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 第一个问题
+        // console.log(1);
+
+        // window.setTimeout(function () {
+        //     console.log(3);
+        // }, 1000);
+
+        // console.log(2);
+
+        // 第二个问题
+        console.log(1);
+
+        window.setTimeout(function () {
+            console.log(3)
+        }, 0);  // 回调函数：回头再执行的函数 会被认为异步函数
+
+        console.log(2);
+        // 结果还是1 2 3
+    </script>
+</body>
+
+</html>

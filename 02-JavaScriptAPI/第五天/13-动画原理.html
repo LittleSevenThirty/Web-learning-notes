@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            position: absolute;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            /* transition: left 5s; */
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+
+    <script>
+        let div = document.querySelector("div");
+
+        // 方法1：利用定时器
+
+        let left = div.offsetLeft;
+        let end = prompt("请输入移动距离:");
+        let flag = window.setInterval(function () {
+            if (div.offsetLeft >= end) {
+                // 停止动画 本质是停止定时器
+                clearInterval(flag);
+            }
+            left += 1;
+            div.style.left = left + "px";
+        });
+
+        // 方法2：利用transition过渡
+        // div.style.left = end + "px";
+    </script>
+</body>
+
+</html>

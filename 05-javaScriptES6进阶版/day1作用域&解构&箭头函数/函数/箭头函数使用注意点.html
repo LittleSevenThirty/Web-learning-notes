@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //  （1）函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+        function foo() {
+            setTimeout(() => {
+                console.log("id:", this.id);
+            }, 100);
+        }
+
+        var id = 21;
+        foo.call({ id: 42 }); // 输出 42
+
+        // 箭头函数可以让setTimeout里面的this，绑定定义时所在的作用域，而不是指向运行时所在的作用域。
+        // 这是由于箭头函数没有this指针，它的this对象会指向于它外层作用域的this对象。
+
+        // （2）不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
+
+        // 箭头函数转成ES5代码如下：
+        function foo2() {
+            let _this = this;
+            setTimeout(function () {
+                console.log("id:", _this.id);
+            }, 100);
+        }
+
+        foo2.call({ id: 42 });
+
+        // eg: 请问以下代码中会有几个this?
+        function foo3() {
+            return () => {
+                return () => {
+                    return () => {
+                        console.log("id:", this.id);
+                    };
+                };
+            };
+        }
+
+        var f = foo3.call({ id: 1 });
+
+        var f1 = f.call({ id: 2 })()();  // 输出 1
+        var f2 = f().call({ id: 3 })();  // 输出 1
+        var f3 = f()().call({ id: 4 });  // 输出 1
+
+        // 以上代码只有foo3有this对象，其它都是箭头函数没有this对象，他们所使用的都是最外层的this对象。
+        // 除了this，以下三个变量在箭头函数之中也是不存在的，
+        // 指向外层函数的对应变量：arguments、super、new.target 
+        // （4）不可以使用yield命令，因此箭头函数不能用作 Generator 函数。
+
+
+        // 不适用的场合
+        // 第一个场合是定义对象的方法，且该方法内部包括this，容易出错，尽量别使用
+        var obj = {
+            uid: 1,
+            say: () => {
+                console.log("uid:", this.uid);  // 这里的this指向了window对象，而不是obj对象
+            }
+        }
+
+        obj.say();
+        // 第二个场合是需要动态this的时候，也不应使用箭头函数。
+        // var button = document.getElementById('press');
+        //     button.addEventListener('click', () => {
+        //         this.classList.toggle('on');
+        //     });
+
+        // 箭头函数的应用：箭头函数的嵌套部署管道机制，可以实现链式调用，即前一个函数的返回值成为下一个函数的参数
+        const pipeline = (...funcs) =>
+            val => funcs.reduce((a, b) => b(a), val);
+
+        const plus1 = x => x + 1;
+        const mult2 = x => x * 2;
+        const addTheMult = pipeline(plus1, mult2);
+
+        console.log(addTheMult(5));  // 12
+
+        // 等价于
+        console.log(mult2(plus1(5)));
+
+    </script>
+</body>
+
+</html>

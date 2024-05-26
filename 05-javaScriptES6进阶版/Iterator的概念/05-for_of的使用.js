@@ -22,3 +22,14 @@ for (let v of obj) {
 }
 
 // 由于obj部署的是数组arr的iterator接口，所以输出结果也是arr的结果
+
+// JavaScript原有的for...in循环，只能或的对象的键名，不能直接获取键值，ES6提供for...of循环，允许遍历获得键值
+var arr2 = ['a', 'b', 'c', 'd'];
+
+for (let a in arr2) {
+    console.log(a); //  0 1 2 3
+}
+
+for (let b of arr2) {
+    console.log(b); // a b c d
+}

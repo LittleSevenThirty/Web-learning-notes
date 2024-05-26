@@ -1,3 +1,4 @@
+********************************************************************************************
 # 1.作用域
 **作用域规定了变量能够被访问的"范围",离开了这个"范围"变量便不能够被访问**
 
@@ -116,8 +117,47 @@ function fn(){
 > <strong style="color:red">上述例子从根部就无法访问到，就会回收</strong>
 
 ### 1.5闭包(closure)
+1. 一个函数对周围状态的引用捆绑在一起，内层函数中访问到其外层函数的作用域
+2. 简单理解:<strong style="color:red">闭包=内层函数+外层函数的变量</strong>
+3. 闭包的应用:实现数据的私有
+> 这样就实现了数据的私有，即使外面修改了参数，也影响不到里面
+>```js
+>function fn(){
+>  let count=1;
+>  function fun(){
+>    count++;
+>    console.log(`函数被调用了${count}次`);  // 标准字符串
+>  }
+>  return fun;
+>}
+>const result=fn();
+>result(); // 2
+>result(); // 3
+>```
+><strong style="color:red">缺点是:</strong>由于无论怎么扫描，都会有指向count的路,所以count无法被回收，发生了内存泄漏
 
 ### 1.6变量提升(js的预解析)
+变量提升是JavaScript的比较"奇怪"的现象,它允许在变量声明之前即被访问(仅存在于var声明变量)
+注意:
+1. 变量在未声明即被访问会报语法错误
+2. 变量在var声明之前即被访问，变量的值为undefined
+3. let/const声明的变量不存在变量提升
+4. 变量提升出现在当前作用域中
+5. <strong style="color:red">实际开发中推荐先声明再访问变量</strong>
+```JavaScript
+// 访问变量str
+console.log(str+'world!');
+// 声明变量str
+var str='hello';
+```
+等价于
+```JavaScript
+//访问变量
+var str;
+console.log(str+'world!');
+// 声明变量
+var str='hello';
+```
 
 
 ********************************************************************************************
@@ -128,10 +168,51 @@ function fn(){
 * **箭头函数**
 ********************************************************************************************
 ### 2.1函数提升
+函数提升同变量提升一样，会把所有的函数声明提前
+<strong style="color:red">注意:</strong>
+```js
+// 函数表达式不会出现函数提升
+fn(); // 报错
+let fn=function(){...}
+```
+注意:函数表达式必须先声明和赋值，后调用，否则报错
 
 ### 2.2函数参数
+**1.动态参数**
+<strong style="color:red">arguments</strong>是函数内部内置的伪数组变量,它包含了调用函数时传入的所有实参
+```js
+// arguments 动态参数只存在于函数里面
+// arguments 是一个伪数组
+function getSum() {
+  let sum = 0;
+  for(let i = 0; i < arguments.length; ++i) {
+    sum += arguments[i];
+  }
+  console.log(sum);
+}
+getSum(1, 2, 3);
+getSum(1, 2, 3, 4, 2, 2, 3, 4);
+```
+总结:
+1. arguments是一个伪数组，只存在于函数中
+2. arguments的作用是动态获取函数的实参
+3. 可以通过for循环依次得到传递过来的实参
+  
+**2.剩余参数**
+1. ...是语法符号，置于最末函数形参之前，用于获取<strong style="color:red">多余</strong>的实参
+2. 借助...获取的剩余参数，是个<strong style="color:red">真数组</strong>
+```js
+// ES6引入rest参数(形式为 ...变量名),用于获取函数的多余参数，来替代arguments对象，rest参数是一个数组，是将多余的参数放入剩余参数中
+function add(...values) {
+  let sum = 0;
+  for (var val of values) {
+    sum += val;
+  }
+  return sum;
+  }
+console.log(add(1, 2, 3, 4, 5, 6, 7, 8, 9));
+```
 
-注意:函数表达式必须先声明和赋值，后调用，否则报错
 
 # 3.解构赋值
 # 4.综合案例

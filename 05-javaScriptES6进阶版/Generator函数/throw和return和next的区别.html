@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // next()、throw()、return()这三个方法本质上是同一件事，可以放在一起理解。它们的作用都是让Generator函数恢复执行，使用不同的语句替换yield表达式
+        // next()是将yield表达式替换成一个值.
+
+        let g = function* (x, y) {
+            let result = yield x + y;
+            return result;
+        };
+
+        const gen = g(1, 2);
+        console.log(gen.next());
+        console.log(gen.next(1));   // next里的值相当于将 yield ? 替换成 next里的参数,没有默认为undefined
+        // 第二次中相当于将 let result=yield x+y 替换为 let result=yield 1;
+
+        // 同理，throw 是将yield表达式替换成throw语句
+        // const gen2 = g(1, 3);
+        // console.log(gen2.throw(new Error("出错了")));
+
+        // return 是将yield表达式替换成return语句,并且不会再执行return后的yield语句
+        const gen3 = g(1, 2);
+        console.log(gen3.return(2));
+    </script>
+</body>
+
+</html>

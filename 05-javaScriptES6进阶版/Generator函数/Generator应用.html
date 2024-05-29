@@ -1,0 +1,37 @@
+<script>
+    // // 普通函数
+    // function xxfn() {
+    //     console.log('xxfn函数');
+    // }
+    // xxfn();
+    function* generator() {
+        yield 'a';
+        yield 'b';
+        yield 'c';
+        return 'd end';
+    }
+    let Gr = generator();
+    console.log(Gr.next());
+    console.log(Gr.next());
+    console.log(Gr.next());
+    console.log(Gr.next());
+
+    // for...of会自动提取next()对象里的value属性
+    for (let v of generator()) {
+        console.log(v);
+    }
+
+    // 实现斐波拉契数列
+    function* fibonacci() {
+        let [prev, curr] = [0, 1];
+        for (; ;) {
+            yield curr;
+            [prev, curr] = [curr, prev + curr];
+        }
+    }
+
+    for (let n of fibonacci()) {
+        if (n > 1000) break;
+        console.log(n);
+    }
+</script>

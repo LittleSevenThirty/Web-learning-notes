@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 如果在 Generator 函数内部，调用另一个 Generator 函数。需要在前者的函数体内部，自己手动完成遍历。
+        // 当然也可以使用yield*
+        // eg
+        function* foo() {
+            yield 'a';
+            yield 'b';
+        }
+
+        function* bar() {
+            yield 'x';
+            // 手动遍历
+            for (let i of foo()) {
+                console.log(i);
+            }
+            yield 'y';
+        }
+
+        // for...of遍历bar
+        for (let i of bar()) {
+            console.log(i);
+        }
+
+        // es6提供了yield*的写法，用于在一个Generator函数中调用另外一个Generator函数
+        function* bar2() {
+            yield 'x';
+            yield* foo();   // 等价于
+            //  for (let i of foo()) {
+            //     console.log(i);
+            // }
+            yield 'y';
+        }
+
+        for (let i of bar2()) {
+            console.log(i);
+        }
+
+        // 如果yield * 后面跟着一个数组，由于数组原生支持遍历器，因此就会遍历数组成员。
+        function* gen() {
+            yield* ['a', 'b', 'c'];
+        }
+
+        let genResult = gen();
+        console.log(genResult.next());
+
+    </script>
+</body>
+
+</html>

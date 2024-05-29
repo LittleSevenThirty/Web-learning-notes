@@ -1,0 +1,24 @@
+// 异步化的同步式表达
+// function* numbers() {
+// let file = new File("numbers.txt");
+// try {
+// while (!file.eof) {
+// yield parseInt(file.readLine(), 10);
+// }
+// } finally {
+// file.close();
+// }
+// }
+
+
+// let generator = numbers();
+// console.log(generator.next());
+
+// 简单点，可以把yield当作return，但是不会结束函数
+// 可以理解为一个“启动方法”
+作用是分阶段执行 Generator 函数
+
+每次调用.next()方法，会返回一个对象
+对象里的值是每一个阶段，包含value和done
+value属性，yield后面的值
+done属性 false表示未执行完,true表示执行完

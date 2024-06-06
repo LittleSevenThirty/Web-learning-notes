@@ -1,0 +1,4 @@
+Promise.race方法同样是将多个Promise实例，包装成一个新的Promise实例
+const p=Promise.race([p1,p2,p3]);
+
+以上代码,只要p1,p2,p3之中有一个实例率先改变状态，p的状态就会跟着改变，那个率先改变的Promise实例返回值，就传递给p的回调函数

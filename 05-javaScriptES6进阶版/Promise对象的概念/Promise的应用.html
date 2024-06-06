@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="imageContainer"></div>
+    <!-- 添加一个用于显示图片的容器 -->
+    <script>
+        // 1. 图片的加载
+        const preLoadImage = function (path) {
+            return new Promise(function (resolve, reject) {
+                const image = new Image();
+                image.onload = function () {
+                    document.getElementById("imageContainer").appendChild(image);   // 添加一个图片元素
+                    resolve();
+                }
+                image.onerror = reject;
+                image.src = path;
+            });
+        };
+
+        preLoadImage("https://tse2-mm.cn.bing.net/th/id/OIP-C.1d6tBbNiJTFQNEK_k0sSjQHaFj?w=254&h=190&c=7&r=0&o=5&dpr=1.3&pid=1.7");
+
+        // 2. Generator函数和Promise函数的结合
+        // 略...
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 注意:Promise新建后都会立即执行        
+
+        // Promise实例生成以后,可以使用then方法分别指定resolved和rejec状态的回调函数
+        // Promise.then(function(value){
+        //     ...// success
+        // },function(error){
+        //     ...// failure
+        // })
+
+        // 第二个函数是可以省略的，会把上一个实例的返回值作为then函数里的回调函数的参数
+        // eg
+        const promise = new Promise(function (resolve, reject) {
+            console.log("one");
+            resolve("three");
+        });
+
+        //  Promise.then(function(value){
+        //     // code...    
+        // },function(error){
+        // code...
+        // })
+
+        promise.then((value) => { console.log(value); });
+
+        console.log("two");
+
+
+        // 如果在resolved状态后面在抛出错误，则不再执行,
+        //     Promise对象一旦确定一个状态后都不在改变
+
+        // Promise对象的错误具有冒泡性质，会一直传递到可以被捕获为止
+        const promise2 = new Promise((resolve, reject) => {
+            resolve("ok");
+            throw new Error("test");
+        });
+
+        promise2.then(value => console.log(value)).catch(error => console.log(error));
+    </script>
+</body>
+
+</html>

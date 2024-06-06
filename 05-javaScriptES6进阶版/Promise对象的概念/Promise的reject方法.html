@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Promise.reject(参数) 方法会返回一个新的Promise实例，该实例的状态为rejected（失败的）
+        const p = Promise.reject("出错了");
+        // 等同于
+        const p2 = new Promise((resolve, reject) => reject("出错了"));  // 有输出结果，也有爆红
+
+        p2.then(null, function (s) {
+            console.log(s);
+        });
+
+        // 以上代码生成一个Promise对象的实例p,状态为rejected,回调函数会立即执行
+        // 注意,Promise.reject()方法的参数，会原封不动地作为reject的理由，变成后续方法的参数，这一点与Promise.resolve方法不一致,
+        // resolve方法会把参数打包成一个Promise对象，后续仍可以调用then,finally
+
+        const thenable = {
+            then(resolve, reject) {
+                reject("出错了");
+            }
+        }
+
+        Promise.reject(thenable).catch(e => console.log(e === thenable));
+    </script>
+</body>
+
+</html>

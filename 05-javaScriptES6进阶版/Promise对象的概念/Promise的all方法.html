@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Promise.all()可以将多个Promise实例打包成一个Promise实例
+        // const p=Promise.all([p1,p2,p3,...]);
+        // Promise.all()方法接受一个Promise实例数组作为参数，p1,p2,p3都是Promise实例，如果不是，则会优先调用Promise.resolve变成Promise实例
+        // (1) p的状态由p1,p2,p3决定,只有p1,p2,p3都是fulfilled(已完成),p才是fulfilled
+        // (2) 否则只要有一个rejected(已失败),则p的状态就是rejected,且返回第一个rejected的Promise实例,后续的catch和then都会以这个实例作为参数
+
+        // 注意:如果作为参数的Promise实例，自己定义了catch方法，那么它一旦被rejected，并不会触发Promise.all()的catch方法
+        const p1 = new Promise(function (resolve, reject) {
+            resolve("hello");
+        })
+            .then(result => result)
+            .catch(error => error);
+
+        const p2 = new Promise((resolve, reject) => {
+            throw new Error("报错了");
+        })
+            .then(result => result)
+            .catch(error => error);
+
+        Promise.all([p1, p2])
+            .then(result => console.log(result))
+            .catch(error => console.log(error)); // 输出: ["hello", Error: 报错了]
+
+        // p1会resolved,p2会rejected但是p2的error被catch捕获并返回,此时的error又被包裹为Promise实例对象,该实例执行完毕后也会变成resolved
+        // 所以Promise.all()方法参数里面的两个实例都会resolved，因此会调用then方法指定的回调函数，而不是调用catch方法指定的回调函数
+        console.log("以下是修改");
+        const p4 = new Promise((resolve, reject) => {
+            resolve('hello');
+        })
+            .then(result => result);
+        const p5 = new Promise((resolve, reject) => {
+            throw new Error('报错了');
+        })
+            .then(result => result);
+        Promise.all([p4, p5])
+            .then(result => console.log(result))
+            .catch(e => console.log(e));
+        // Error: 报错了
+
+        // 与之相对的是Promise.any方法
+        // 只有所有实例都为rejected才rejected，否则都为fulfilled
+    </script>
+</body>
+
+</html>

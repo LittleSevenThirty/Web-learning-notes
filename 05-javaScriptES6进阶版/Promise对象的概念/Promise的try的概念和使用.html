@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 实际开发中,经常遇到一种情况:不知道或者不想区分，函数f是同步的还是异步的，但是想用Promise来处理它。因为这样就可以不管f是否包含异步操作，都用then
+        // 方法指定下一步流程,用catch方法处理f抛出的错误，一般就会采用以下写法
+        const f = () => console.log("now");
+        Promise.resolve().then(f);
+        console.log("next");
+
+        // 这样有一个明显的缺点，不管f是同步函数还是异步函数，它都会在本轮事件循环的末尾执行
+    </script>
+</body>
+
+</html>

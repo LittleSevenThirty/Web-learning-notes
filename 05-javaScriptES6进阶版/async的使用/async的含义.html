@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // async就是 Generator函数的语法糖[让使用更加简单]
+        // async是ECMAScript 2017 引入的
+        // 以下代码段
+        const fs = require('fs');
+
+        const readFile = function (fileName) {
+            return new Promise(function (resolve, reject) {
+                fs.readFile(fileName, function (error, data) {
+                    if (error) return reject(error);
+                    else return resolve(data);
+                });
+            });
+        }
+
+        const gen = function* () {
+            const f1 = yield readFile('/etc/fstab');
+            const f2 = yield readFile('/etc/shells');
+            console.log(f1.toString());
+            console.log(f2.toString());
+        }
+
+        // 以上代码可以写成
+        const asyncReadFile = async function () {
+            const f1 = await readFile('/etc/fstab');
+            const f2 = await readFile('/etc/shells');
+            console.log(f1.toString());
+            console.log(f2.toString());
+        };
+
+        // 比较两者
+        // async函数把 * 替换为 async 而 yield 替换为 await;
+        // async函数的好处有四点：
+        // 1. async 自带执行器 而不是像Generator函数需要调用next
+        // 可以直接调用 asyncReadFile() 像调用函数一样
+
+        // 2. async 和 await 比起 * 和 yield 更加语义清晰 async(异步)，await 表示后面表达式需要等待结果
+
+        // 3. 适用性更广，yield命令后面只能跟Thunk函数或Promise对象，而async的await命令后面可以是Promise对象也可以是原始数据类型，会自动包装成立即resolved
+        // 的Promise对象
+
+        // 4. 返回值是Promise对象，比Generator函数方便
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 由于Symbol值都是不相等的，这意味着Symbol值可以作为标识符，用于对象的属性名，就能保证不会出现同名的属性了，
+        // 这对于一个对象是由多模块构成的情形就给力了，能防止修改某一键从而改写或者覆盖
+
+        let a1 = {}, a3 = {};
+
+        // 赋值的三种写法
+        let mySymbol = Symbol();
+
+        // 写法1
+        a1[mySymbol] = "hello";
+
+        // 写法2
+        let a2 = {
+            [mySymbol]: "hello",
+        }
+
+        // 写法3
+        Object.defineProperty(a3, mySymbol, { value: "hello" });
+
+        console.log("a1:", a1[mySymbol]);
+
+        console.log("a2:", a2[mySymbol]);
+
+        console.log("a3:", a3[mySymbol]);
+
+        // 注意，symbol作为对象属性名时不能使用.运算符
+        const a = {};
+        a.mySymbol = "hello";
+        console.log(a[mySymbol]);   // undefined
+        console.log(a["mySymbol"]); // hello
+
+        // 为什么呢？
+
+        // 因为.运算符的优先级比[]运算符高，所以.运算符会先进行属性查找，如果属性名是Symbol值，则会报错。
+        // 点运算符后面总是字符串，不会读取mySymbol的值，而是直接对象上找或者创建
+        // 同理，在对象内部使用Symbol值作为属性名时，Symbol值必须放在方括号内
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 有时，我们希望重新使用同一个Symbol值，但是每次调用 Symbol(?) 都是产生不同的Symbol值，而Symbol.for()方法可以解决这个问题
+        // Symbol.for(str) 接受一个字符串作为参数，会搜索是否有以该参数作为名称的Symbol值，若果有，就返回这个Symbol值，否则就新键一个Symbol值
+        // eg:
+        let s1 = Symbol.for("foo");
+        let s2 = Symbol.for("foo");
+        console.log("s1 and s2 都是Symbol.for(\"foo\")创建,s1===s2:", s1 === s2);
+
+        let s3 = Symbol("foo");
+        let s4 = Symbol("foo");
+        console.log("s3 and s4 都是Symbol(\"foo\")创建,s3===s4", s3 === s4);
+
+        // Symbol.for()和Symbol()的区别是，前者每次生成都会在全局环境下登记以供搜索，后者不会。这就造成Symbol.for("cat")调用30次只会返回一个Symbol值
+        // 而Symbol("cat")调用30次，则会返回30个不同的Symbol值
+
+        // Symbol.keyFor()返回一个已经登记的Symbol值的键
+        console.log(`s1的键是${Symbol.keyFor(s1)}`);
+        console.log(`s3的键是${Symbol.keyFor(s3)}`);    // 因为s3没有登记，所以返回undefined
+
+        // 注意：Symbol.for()和Symbol()创建的Symbol值，只在当前环境下有效，不同环境下是不共享的
+
+        // Symbol.for()登记在全局环境下，不管有没有在运行
+        function f() {
+            return Symbol.for("hello");
+        }
+
+        let s5 = f();
+        let s6 = Symbol.for("hello");
+        console.log(`s5===s6:${s5 === s6}`);
+    </script>
+</body>
+
+</html>

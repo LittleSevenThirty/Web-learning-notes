@@ -9,3 +9,5 @@ const addTheMult = pipeline(plus1, mult2);
 console.log(addTheMult(5));  // 12
 
 // 我在想应该停顿多少s在出现提示最好
+
+// 箭头函数补充

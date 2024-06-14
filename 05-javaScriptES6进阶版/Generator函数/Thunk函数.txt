@@ -1,0 +1,20 @@
+Thunk函数是实现 “传名调用” 的策略，用于替换某个表达式，比 “传值调用” 的一个优点是避免了，传值调用后函数又不适用该参数，造成性能损失
+
+Thunk 函数的含义
+编译器的 “传名调用” 实现，往往是将参数传入一个临时函数里面，再将这个函数传入函数体，这个临时函数就是Thunk函数
+
+function f(m){
+    return m*2;
+}
+
+f(x+5);
+
+// 等同于
+
+var thunk=function(){
+    return x+5;
+}
+
+funtion f(thunk){
+    return thunk()*2;
+}

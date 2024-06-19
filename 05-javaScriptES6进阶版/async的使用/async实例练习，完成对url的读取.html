@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 实际开发中，经常遇到一组异步操作，需要按照顺序完成。比如，依次远程读取一组URL,然后按照顺序输出结果
+        // Promise的写法如下
+        async function mockFetch(url) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve({ text: () => Promise.resolve("内容来自 " + url) });
+                }, Math.floor(Math.random() * 1000));
+            });
+        }
+
+
+        function LogInOrder(urls) {
+            // 远程读取所有的URL
+            const textPromises = urls.map(url => {
+                return mockFetch(url).then(response => response.text());
+            });
+
+            // 按次序输出
+            textPromises.reduce((chain, textPromise) => {
+                return chain.then(() => textPromise).then(text => console.log(text));
+            }, Promise.resolve());
+        }
+
+        const urls = [
+            "https://baidu.com",
+            "https://i.chaoxing.com",
+            "https://www.bilibili.com/"
+        ];
+
+        LogInOrder(urls);
+    </script>
+</body>
+
+</html>

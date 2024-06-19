@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="module">
+        // 引擎处理import代码实在编译时，不会去判断if和其它代码块，缺点就是无法动态加载模块，需要使用require
+        // 注意import和export只能在模块的最顶层，不能在代码之中
+        import SayHi from "/Moudle概述.js";
+        SayHi();
+        // ES2020提供了 import函数 实现动态的加载模块
+        // console.dir(import('Moudle概述.js'));
+
+        // import()函数可以用在任何地方，不仅仅是模块，非模块的脚本也可以使用。它是运行时执行，也就是说，什么时候运行到此句，什么时候在加载模块
+        // import函数内饰与Node的require方法，区别在于前者是异步加载，后者是同步加载。
+
+        // 运用场景
+        // （1）按需加载
+        // （2）条件加载
+        // （3）动态的模块路径
+    </script>
+</body>
+
+</html>

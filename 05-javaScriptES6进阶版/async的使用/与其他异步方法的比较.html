@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            transition: background-color 1s;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        // 动画函数定义
+        function changeToRed(elem) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    elem.style.backgroundColor = 'red';
+                    resolve('Changed to red');
+                }, 1000);
+            });
+        }
+
+        function changeToGreen(elem) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    elem.style.backgroundColor = 'green';
+                    resolve('Changed to green');
+                }, 1000);
+            });
+        }
+
+        function throwError(elem) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    reject('Error occurred');
+                }, 1000);
+            });
+        }
+
+        // 假定某个DOM元素上面，部署了一系列的动画，前一个动画结束，才能开始执行后一个，如果当中有一个动画出错，就不再往下执行，返回上一个成功执行的动画
+        // 返回值
+        // 1. Promise对象的写法
+        function ChainAnimationsPromise1(elem, animations) {
+            // ret存储上一个动画的返回值
+            let ret = null;
+
+            // 创建一个空的Promise
+            let p = Promise.resolve();
+
+            // 使用then方法添加所有的动画
+            for (let anim of animations) {
+                p = p.then(function (val) {
+                    ret = val;
+                    return anim(elem);
+                });
+            }
+
+            // 返回一个部署了错误捕捉机制的Promise
+            return p.catch(function (e) {
+                // 忽略错误，继续执行
+                console.error(e);
+            }).then(function () {
+                return ret;
+            });
+        }
+
+        // Generator函数的写法 请注意里面调用了spawn函数,即自动执行器
+        // function ChainAnimationsPromise2(elem, animations) {
+        //     return spawn(function* () {
+        //         let ret = null;
+        //         try {
+        //             for (let anim of animations) {
+        //                 ret = yield anim(elem);   // 这里不用像Promise return返回新的Promsie对象
+        //             }
+        //         } catch (e) {
+        //             console.error(e);
+        //         }
+        //         return ret;
+        //     })
+        // }
+
+        // async函数的写法
+        async function ChainAnimationsPromise3(elem, animations) {
+            let ret = null;
+            try {
+                for (let anim of animations) {
+                    ret = await anim(elem);
+                }
+            } catch (e) {
+                console.error(e);
+            }
+            return ret;
+        }
+
+        // 获取函数定义动画序列
+        const box = document.getElementById('box');
+        const animations = [changeToRed, changeToGreen, throwError, changeToRed];
+
+        // 启动动画链
+        // ChainAnimationsPromise1(box, animations)
+        //     .then(result => console.log('Last animation result:', result))
+        //     .catch(error => console.log('Error in animation sequence:', error));
+
+        ChainAnimationsPromise3(box, animations)
+            .then(result => console.log('Last animation result:', result))
+            .catch(error => console.log('Error in animation sequence:', error));
+    </script>
+</body>
+
+</html>
